@@ -1,0 +1,91 @@
+/* ===== Palette du moodboard ===== */
+:root {
+  --creme: #F7F4E3;
+  --rose: #A66D72;
+  --rose-clair: #BF9B9B;
+  --rose-fonce: #8E5560;   /* pour le texte/boutons (meilleur contraste) */
+  --sauge: #8C8A6D;
+  --prune: #735F5F;
+  --encre: #4A3B3D;
+  --or: #B07A3A;
+  --titre: 'Cormorant Garamond', serif;
+  --mono: 'DM Mono', monospace;
+}
+/* Pour utiliser Novantique Serif Display : ajoute un @font-face
+   puis remplace 'Cormorant Garamond' dans --titre. */
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--creme); color: var(--prune);
+       font: 400 17px/1.6 'Jost', sans-serif; }
+body.charge { overflow: hidden; }
+a { color: var(--rose-fonce); }
+img { max-width: 100%; display: block; }
+.conteneur { width: min(1120px, 100% - 48px); margin: 0 auto; }
+.etroit { max-width: 700px; text-align: center; }
+.centre { text-align: center; }
+.label { margin: 0; font: 500 13px var(--mono); letter-spacing: .14em; text-transform: uppercase; }
+h1, h2, h3 { font-family: var(--titre); color: var(--encre); font-weight: 500; margin: 0; }
+h2 { font-size: clamp(34px, 5vw, 52px); margin: 8px 0 48px; }
+
+/* ===== Navigation ===== */
+.nav { position: fixed; z-index: 5; top: 20px; left: 50%; transform: translateX(-50%);
+       width: min(620px, 100% - 32px); display: flex; justify-content: space-between; align-items: center;
+       background: var(--encre); border-radius: 14px; padding: 10px 24px; }
+.nav a { color: var(--creme); text-decoration: none; font-size: 15px; }
+.sceau-nav { width: 46px; height: 46px; border-radius: 50%; background: var(--or); display: grid;
+             place-items: center; font: italic 600 28px var(--titre); box-shadow: inset 0 0 0 3px #D9A85C; }
+
+/* ===== Hero ===== */
+.hero { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 48px;
+        align-items: end; padding-top: 140px; }
+.hero-texte { padding-bottom: 72px; }
+.hero h1 { font-size: clamp(72px, 12vw, 120px); font-style: italic; line-height: 1; margin: 16px 0; }
+.accroche { font: italic 500 28px/1.3 var(--titre); max-width: 420px; margin: 0 0 36px; }
+.bouton { display: inline-block; background: var(--rose-fonce); color: #fff; padding: 14px 32px;
+          border-radius: 999px; text-decoration: none; min-height: 44px; }
+.bouton:hover { background: var(--encre); }
+.hero-rideau { height: 560px; border-radius: 300px 300px 0 0;
+  background: repeating-linear-gradient(90deg, var(--rose) 0 34px, var(--rose-clair) 34px 70px, #D2B0B0 70px 88px);
+  box-shadow: inset 0 -90px 90px -40px rgba(74,59,61,.45); }
+
+/* ===== Projets ===== */
+#projets { padding: 96px 0 80px; }
+.grille { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 56px; }
+.carte { background: #fff; border: 1px solid var(--rose-clair); outline: 1px solid var(--rose-clair);
+         outline-offset: 6px; border-radius: 120px 120px 10px 10px; padding: 14px 14px 22px;
+         transition: transform .3s; }
+.carte:nth-child(1) { transform: rotate(-2deg); }
+.carte:nth-child(2) { transform: translateY(24px) rotate(1.5deg); }
+.carte:nth-child(3) { transform: rotate(-1deg); }
+.carte:hover { transform: rotate(0) translateY(-6px); }
+.carte a { text-decoration: none; color: inherit; }
+.carte img { width: 100%; height: 200px; object-fit: cover; border-radius: 110px 110px 6px 6px; background: #E8D5D3; }
+.carte h3 { font-size: 26px; font-weight: 600; margin: 16px 12px 2px; }
+.carte .label { margin: 0 12px; font-size: 11px; }
+
+/* ===== Coulisses & pied de page ===== */
+.coulisses { background: var(--sauge); color: #fff; padding: 80px 0; }
+.coulisses h2, .coulisses .label { color: #fff; margin-bottom: 12px; font-style: italic; }
+.pied { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; padding: 40px 0; }
+
+/* ===== Rideau de chargement ===== */
+.rideau { display: none; }
+.js .rideau { position: fixed; inset: 0; z-index: 10; display: flex; pointer-events: none; }
+.pan { flex: 1; transition: transform 1.6s cubic-bezier(.77, 0, .18, 1);
+  background: repeating-linear-gradient(90deg, var(--rose) 0 34px, var(--rose-clair) 34px 70px, #D2B0B0 70px 88px);
+  box-shadow: inset 0 -120px 120px -60px rgba(74,59,61,.5); }
+.rideau.ouvert .gauche { transform: translateX(-101%); }
+.rideau.ouvert .droite { transform: translateX(101%); }
+.rideau .sceau { position: absolute; left: 50%; top: 50%; width: 92px; height: 92px; margin: -46px 0 0 -46px;
+  border-radius: 50%; background: var(--or); box-shadow: inset 0 0 0 5px #D9A85C, 0 8px 24px rgba(0,0,0,.3);
+  display: grid; place-items: center; font: italic 500 56px var(--titre); color: #fff; transition: opacity .5s, transform .5s; }
+.rideau .compteur { position: absolute; left: 0; right: 0; top: calc(50% + 80px); text-align: center;
+  font: 500 13px var(--mono); letter-spacing: .14em; color: var(--encre); transition: opacity .4s; }
+.rideau.fin .sceau, .rideau.fin .compteur { opacity: 0; }
+.rideau.fin .sceau { transform: scale(1.3); }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .pan, .rideau .sceau, .rideau .compteur, .carte { transition: none; }
+}
