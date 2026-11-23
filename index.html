@@ -15,16 +15,17 @@
 <body class="charge">
 
   <!-- RIDEAU DE CHARGEMENT -->
-  <div class="rideau" id="rideau" aria-hidden="true">
-    <div class="pan gauche"></div>
-    <div class="pan droite"></div>
-    <div class="sceau">A</div>
-    <div class="compteur" id="compteur">000</div>
+  <div class="rideau" id="rideau">
+    <div class="pan gauche" aria-hidden="true"></div>
+    <div class="pan droite" aria-hidden="true"></div>
+    <img class="sceau" src="images/logo.png" alt="">
+    <div class="compteur" id="compteur" aria-hidden="true">000</div>
+    <button class="tirer" id="tirer" type="button" aria-label="Ouvrir le rideau" hidden>TIRER</button>
   </div>
 
   <header class="nav">
     <a href="#projets">Projets</a>
-    <a href="#accueil" class="sceau-nav" aria-label="Accueil">A</a>
+    <a href="#accueil" class="sceau-nav" aria-label="Accueil"><img src="images/logo.png" alt=""></a>
     <a href="#contact">Contact</a>
   </header>
 
@@ -38,6 +39,17 @@
         <a class="bouton" href="#projets">Lever le rideau</a>
       </div>
       <div class="hero-rideau" aria-hidden="true"></div>
+    </section>
+
+    <!-- PROLOGUE : survole les mots soulignés pour voir un aperçu -->
+    <section class="prologue conteneur">
+      <p class="label">( Prologue )</p>
+      <p class="intro">Étudiante en BUT MMI, je mêle
+        <span class="mot" tabindex="0" data-img="images/siege-gourmand.jpg" data-alt="Capture du jeu Siège gourmand">développement web</span>,
+        <span class="mot" tabindex="0" data-img="images/feed-insta.jpg" data-alt="Mockup du feed Instagram">design graphique</span> et
+        <span class="mot" tabindex="0" data-img="images/campus-culture.jpg" data-alt="Maquettes de Campus Culture">UX/UI</span>
+        pour raconter des histoires.</p>
+      <p class="label aide">Survole les mots soulignés pour voir le travail</p>
     </section>
 
     <!-- PROJETS : duplique un <article> pour en ajouter un -->
@@ -84,6 +96,7 @@
     <a href="mailto:ton@email.fr">ton@email.fr</a>
   </footer>
 
+  <img class="apercu" id="apercu" alt="">
   <script src="script.js"></script>
 </body>
 </html>

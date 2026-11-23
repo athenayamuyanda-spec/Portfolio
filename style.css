@@ -33,8 +33,8 @@ h2 { font-size: clamp(34px, 5vw, 52px); margin: 8px 0 48px; }
        width: min(620px, 100% - 32px); display: flex; justify-content: space-between; align-items: center;
        background: var(--encre); border-radius: 14px; padding: 10px 24px; }
 .nav a { color: var(--creme); text-decoration: none; font-size: 15px; }
-.sceau-nav { width: 46px; height: 46px; border-radius: 50%; background: var(--or); display: grid;
-             place-items: center; font: italic 600 28px var(--titre); box-shadow: inset 0 0 0 3px #D9A85C; }
+.sceau-nav { display: grid; place-items: center; }
+.sceau-nav img { height: 46px; width: auto; }
 
 /* ===== Hero ===== */
 .hero { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 48px;
@@ -69,23 +69,44 @@ h2 { font-size: clamp(34px, 5vw, 52px); margin: 8px 0 48px; }
 .coulisses h2, .coulisses .label { color: #fff; margin-bottom: 12px; font-style: italic; }
 .pied { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; padding: 40px 0; }
 
-/* ===== Rideau de chargement ===== */
+/* ===== Rideau de chargement (à tirer) ===== */
 .rideau { display: none; }
-.js .rideau { position: fixed; inset: 0; z-index: 10; display: flex; pointer-events: none; }
+.js .rideau { position: fixed; inset: 0; z-index: 10; display: flex; touch-action: none; user-select: none; --p: 0; }
+.rideau.pret { cursor: grab; }
+.rideau.tire { cursor: grabbing; }
+.rideau.ouvert { pointer-events: none; }
 .pan { flex: 1; transition: transform 1.6s cubic-bezier(.77, 0, .18, 1);
   background: repeating-linear-gradient(90deg, var(--rose) 0 34px, var(--rose-clair) 34px 70px, #D2B0B0 70px 88px);
   box-shadow: inset 0 -120px 120px -60px rgba(74,59,61,.5); }
-.rideau.ouvert .gauche { transform: translateX(-101%); }
-.rideau.ouvert .droite { transform: translateX(101%); }
-.rideau .sceau { position: absolute; left: 50%; top: 50%; width: 92px; height: 92px; margin: -46px 0 0 -46px;
-  border-radius: 50%; background: var(--or); box-shadow: inset 0 0 0 5px #D9A85C, 0 8px 24px rgba(0,0,0,.3);
-  display: grid; place-items: center; font: italic 500 56px var(--titre); color: #fff; transition: opacity .5s, transform .5s; }
-.rideau .compteur { position: absolute; left: 0; right: 0; top: calc(50% + 80px); text-align: center;
+.gauche { transform: translateX(calc(var(--p) * -101%)); }
+.droite { transform: translateX(calc(var(--p) * 101%)); }
+.rideau.glisse .pan { transition: none; }
+.rideau .sceau { position: absolute; left: 50%; top: 50%; width: 120px; height: auto; pointer-events: none;
+  transform: translate(-50%, -50%); filter: drop-shadow(0 8px 16px rgba(0,0,0,.3)); transition: opacity .4s; }
+.rideau.glisse .sceau, .rideau.ouvert .sceau { opacity: 0; }
+.rideau .compteur { position: absolute; left: 0; right: 0; top: calc(50% + 84px); text-align: center;
   font: 500 13px var(--mono); letter-spacing: .14em; color: var(--encre); transition: opacity .4s; }
-.rideau.fin .sceau, .rideau.fin .compteur { opacity: 0; }
-.rideau.fin .sceau { transform: scale(1.3); }
+.rideau.fin .compteur { opacity: 0; }
+.tirer { position: absolute; left: var(--x, 50%); top: var(--y, calc(50% + 160px)); width: 96px; height: 96px;
+  margin: -48px 0 0 -48px; border: 0; border-radius: 50%; background: var(--encre); color: var(--creme);
+  display: grid; place-items: center; font: 500 13px var(--mono); letter-spacing: .1em; cursor: inherit; }
+.tirer[hidden] { display: none; }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .pan, .rideau .sceau, .rideau .compteur, .carte { transition: none; }
 }
+
+/* ===== Prologue : texte surligné + aperçu ===== */
+.prologue { padding: 96px 0 0; max-width: 820px; }
+.intro { margin: 16px 0; font: 500 clamp(26px, 4vw, 38px)/1.35 var(--titre); color: var(--encre); }
+.mot { text-decoration: underline; text-decoration-color: var(--rose-clair); text-decoration-thickness: 2px;
+       text-underline-offset: 6px; cursor: pointer; transition: color .2s; }
+.mot:hover, .mot:focus-visible { color: var(--rose-fonce); outline: none; }
+.aide { font-size: 11px; }
+.apercu { position: fixed; z-index: 6; width: 200px; height: 260px; object-fit: cover; pointer-events: none;
+  border-radius: 100px 100px 8px 8px; border: 1px solid var(--rose-clair); outline: 1px solid var(--rose-clair);
+  outline-offset: 6px; background: #E8D5D3; opacity: 0; transform: translate(-50%, -108%) rotate(-3deg);
+  transition: opacity .2s; }
+.apercu.visible { opacity: 1; }
+@media (prefers-reduced-motion: reduce) { .apercu, .mot { transition: none; } }
